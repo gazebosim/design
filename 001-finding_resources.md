@@ -31,7 +31,7 @@ skip directly to the last step which describes how
    `common::SystemPaths::FindFile`.
 
 3. If the world file is found, then SDF is used to load the world file. SDF
-   will only attempt to resolve URI resources contained withing the world
+   will only attempt to resolve URI resources contained within the world
    file that are in `<include>` elements.
 
 4. A SimulationRunner is then instantiated for each `sdf::World`. The
