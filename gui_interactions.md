@@ -38,14 +38,16 @@ immutable kinematics and dynamics.
 With that in mind, this design document proposes the separation of features into
 interaction and editing. The central difference between them being that editing
 features can't happen while physics is running, while interaction features can
-happen any time. In other words, whenever simulation is **paused**,
-**edit mode** will be enabled.
+happen any time. In other words, we will have two separate modes of operation:
+
+* **Edit mode**: whenever simulation is **paused**
+* **Interactive mode**: whenever simulation is **playing**
 
 Different modes of operation are common among software which allows both
 creating and running content. Think about how slides can't be edited while
 they're being presented, or how video editors will show short previews while
-editing a video, but once the video is saved it can no longer be edited. Closer
-to the robotics world, we have game engines which often have a clearly
+editing a video, but once the video is generated it can no longer be edited.
+Closer to the robotics world, we have game engines which often have a clearly
 separate run step for the game to be tested.
 
 While implementing these different modes of operation, it's important to:
@@ -61,14 +63,15 @@ as needed. For example, all fields in the Component Inspector should be writable
 while simulation is paused, but only a few fields, such as model poses, should
 be writable while simulation is running.
 
-## User stories
+## Mode switching
 
-1. User has a 3D mesh and wants to create a rigid model from it.
-2. User has several 3D meshes and wants to create an articulated model from it.
-3. User has a 2D image and wants to extrude that as a geometry for a model.
-4. User has an SDF model and wants to change the mass of a link.
-4. User has an SDF light and wants to change its color.
-4. User has an SDF model and wants to change the position of a joint.
+* Switching between Edit and Interactive modes will be accomplished through the
+play / pause button.
+* It's up to each GUI plugin to be aware of the current simulation mode and
+behave accordingly.
+* SDF generation and saving won't be performed when exiting edit mode. Instead,
+saving can be performed at any time from any mode based on the current state.
+* All entities are editable while in edit mode.
 
 ## Features
 
@@ -76,167 +79,331 @@ be writable while simulation is running.
 
 #### Mouse orbiting
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+* **Modes**: Edit / Interactive
+* **Priority**: Must have
+* **References**
+    * TODO: link to Ignition tutorial
+* **User stories**
+    * User wants to look at different parts of the world.
+
+Available since Acropolis.
 
 #### Preset view angles
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+* **Modes**: Edit / Interactive
+* **Priority**: Should have
+* **References**
+    * TODO: link to Ignition tutorial
+* **User stories**
+    * User is constructing a world and wants to check how models are aligned from
+      different angles.
+
+Available since Blueprint.
 
 #### Move to entity
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+* **Modes**: Edit / Interactive
+* **Priority**: Should have
+* **References**
+    * TODO: link to Ignition tutorial
+* **User stories**
+    * User is inspecting a large world, and they want to find a specific
+      entity.
+
+Available since Blueprint.
 
 #### Follow entity
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+* **Modes**: Interactive
+* **Priority**: Should have
+* **References**
+    * TODO: link to Ignition tutorial
+* **User stories**
+    * User is simulating a mobile robot and wants to keep it in view at all
+      times.
+
+Available since Blueprint.
 
 ### Geometry creation
 
+Features related to creating and importing geometric shapes to be used
+as rigid bodies in simulation.
+
 #### Import 3D meshes
+
+* **Modes**: Edit
+* **Priority**: Must have
+* **References**
+    * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#Addmeshes)
+        * Gazebo-classic's default behavious is to create a link and use the
+          mesh as geometry for both visual and collision.
+* **User stories**
+    * User has a 3D mesh and wants to create a rigid model from it.
 
 Import a mesh file from the local file system to use as a visual or collision
 geometry.
 
-**Need**: Required
-**User stories**: 1
-**Effort**:
-**References**:
-* [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#Addmeshes)
+Ignition supports DAE, OBJ and STL meshes. Implementation of the importing
+widget would involve opening a file browser and spawning the selected file into
+simulation.
 
 #### Extrude 2D shapes
+
+* **Modes**: Edit
+* **Priority**: Could have
+* **References**
+    * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=extrude_svg)
+* **User stories**
+    * User has a 2D image and wants to extrude that as a geometry for a model.
 
 Extrude a 2D file from the local file system into a 3D shape to use as a visual
 or collision geometry.
 
-**Need**: Nice to have
-**User stories**: 3
-**Effort**:
-**References**:
-* [Gazebo tutorial](http://gazebosim.org/tutorials?tut=extrude_svg)
+Like on Gazebo-classic, the widget could load an SVG file, let the user choose
+a few parameters, and spawn the shape as collision and visual. Polyline support
+will also need to be added.
 
 #### Insert simple shapes
+
+* **Modes**: Edit / Interactive
+* **Priority**: Must have
+* **References**
+    * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#Addsimpleshapes)
+* **User stories**
+    * User wants to create a simple vehicle composed of boxes and cylinders.
 
 Choose a primitive shape to use as a visual or collision geometry. Support
 specifying parameters such as size, physical material and visual material.
 
-**Need**: Nice to have
-**User stories**: 3
-**Effort**:
-**References**:
-* [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#Addsimpleshapes)
+The widget would offer a few simple shape options (box, cylinder, sphere). It
+could have additional options on a dropdown, such as material, which would
+define the mass, inertia, and perhaps even visual appearance.
 
-### Kinematics
+### Entity creation
+
+Features related to assembling or modifying a kinematic structure.
 
 #### Create joints
 
+* **Modes**: Edit
+* **Priority**: Must have
+* **References**
+    * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#CreateJoints)
+* **User stories**
+    * User has several 3D meshes and wants to create an articulated model from it.
+
 Visual tool to aid creating joints between links.
 
-**Need**: Required
-**User stories**:
-**Effort**:
-**References**:
-* [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#CreateJoints)
+Similar to Gazebo-classic's, a widget which offers several joint options and
+lets the user click on links on the 3D scene to connect them.
 
----
+#### Create sensors
 
-TODO: Categorize these:
+* **Modes**:
+* **Priority**:
+* **References**
+* **User stories**
 
-#### View collisions
+TODO
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+#### Attach plugins
 
-#### View joints
+* **Modes**:
+* **Priority**:
+* **References**
+* **User stories**
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+TODO
 
-#### Property inspector
+#### Insert models
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
-* [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#Edityourmodel)
+* **Modes**: Edit / Interactive
+* **Priority**: Must have
+* **References**
+    * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=guided_b2&cat=#LeftPanel)
+* **User stories**
+    * User has a specific SDF model saved in their local disk which they wish
+      to insert into simulation.
+    * User is creating an environment for their robot to move in, but they don't
+      have any other models locally besides the robot.
 
-#### Copy / paste
+In edit mode, entire models can be inserted as nested models, or broken apart
+into links to be reused by other models.
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+In interactive mode, models are spawned into the world at runtime.
 
-#### Undo / redo
+### Manipulation
 
-Commands processed during edit mode can be completely handled by the client.
+Features related to changing the pose of shapes.
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+#### Translation and rotation tool
+
+* **Modes**: Edit / Interactive
+* **Priority**: Must have
+* **References**
+    * TODO: link to Ignition tutorial
+* **User stories**
+    * User wants to test the robot on a different place in the world, without
+      restarting simulation.
+
+Available since Acropolis.
 
 #### Align
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+* **Modes**: Edit / Interactive
+* **Priority**: Should have
+* **References**
+    * TODO: link to Ignition tutorial
+* **User stories**
+
+Available since Blueprint.
+
+#### Joint manipulation
+
+* **Modes**: Edit / Interactive
+* **Priority**: Could have
+* **References**
+* **User stories**
+
+TODO
+
+Manual joint manipulation through its range of motion.
+
+### Workflow
+
+Features related to the user's workflow.
+
+#### Property inspector
+
+* **Modes**: Edit / Interactive
+* **Priority**: Must have
+* **References**
+    * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#Edityourmodel)
+    * TODO: link to Ignition tutorial
+* **User stories**
+    * User has an SDF model and wants to change the mass of a link.
+    * User has an SDF light and wants to change its color.
+    * User has an SDF model and wants to change the position of a joint.
+
+Read-only inspector for several component types available from Blueprint.
+Component inspector will need to be updated to support edit mode and enable
+writable widgets for components which can be saved to SDF.
+
+#### 3D Visualizations
+
+* **Modes**: Edit / Interactive
+* **Priority**: Should have
+* **References**
+* **User stories**
+
+Visualization of entiites other than visuals, such as collisions, joints,
+sensors, lights, etc.
+
+Similar to Gazebo-classic, these can be reachable from a context menu.
+Visibility options could also be added to the component inspector. Rendering
+visuals will need to be implemented.
+
+#### Undo / redo
+
+* **Modes**: Edit / Interactive
+* **Priority**: Should have
+* **References**
+    * [Gazebo design document](https://bitbucket.org/osrf/gazebo_design/src/default/undo/undo.md)
+* **User stories**
+
+For interactive mode, user commands are processed by the server. The
+`UserCommands` system is already keeping commands in a queue. Completing
+the implementation will involve implementing the undo / redo behaviour for each
+command. There's also the need to revert time and world state.
+
+For edit mode, the command queue can be completely handled by the client.
+
+#### Save to SDF
+
+* **Modes**: Edit / Interactive
+* **Priority**: Must have
+* **References**
+* **User stories**
+
+Saving a world or parts of it to an SDF file.
+
+#### Copy / paste
+
+* **Modes**: Edit / Interactive
+* **Priority**: Could have
+* **References**
+* **User stories**
+
+TODO
 
 #### Schematic view
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+* **Modes**: Edit / Interactive
+* **Priority**: Could have
+* **References**
+* **User stories**
 
-#### Save SDF
+TODO
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+#### Simulation speed
 
-#### Manipulate entities in 3D
+* **Modes**: Interactive
+* **Priority**: Could have
+* **References**
+* **User stories**
 
-Support manual manipulation, such as moving a joint through its range of motion.
-
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
-
+TODO
 
 ### Recording
 
 #### Video creator
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+* **Modes**: Edit / Interactive
+* **Priority**: Could have
+* **References**
+* **User stories**
+
+TODO
 
 #### Log record
 
-**Need**:
-**User stories**:
-**Effort**:
-**References**:
+* **Modes**: (Edit?) / Interactive
+* **Priority**: Must have
+* **References**
+* **User stories**
+
+TODO
+
+### Materials
+
+#### Set materials on 3D
+
+* **Modes**: Edit
+* **Priority**: Could have
+* **References**
+* **User stories**
+
+TODO
+
+### Introspection
+
+#### Plotting
+
+* **Modes**: Interactive
+* **Priority**: Could have
+* **References**
+* **User stories**
+
+TODO
+
+#### Topic viewer
+
+* **Modes**: Interactive
+* **Priority**: Could have
+* **References**
+* **User stories**
+
+TODO
 
 ## Lessons from Gazebo-classic
 
@@ -247,22 +414,3 @@ do something else so we don't hang every time the user unpauses.
 * The different interfaces for visualizing properties during simulation and
 during editing caused confusion for users.
 
-
-
-
----
-
-# TODO: Add these
-
-Sensor property visualization (such as camera frustum and lidar range) and parameter modification
-Attach sensors
-Attach plugins
-Insert models from Fuel
-
-Interactive mode only:
-
-* Control simulation speed
-* Log record and playback ?
-* Plotting
-* Topic viewer
-* Sensor data visualization
