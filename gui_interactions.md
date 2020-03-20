@@ -29,11 +29,11 @@ following it. And teleporting objects is also essential to creating a new world
 environment.
 
 It could be argued that every aspect of editing could be helpful for
-interaction. Even actions like changing mass or adding a new link will be
-helpful to some user. However, it's important to keep in mind that handling
-interactions is considerably more complicated than handling editing, primarily
-because physics engines are usually designed to deal with nodies that have
-immutable kinematics and dynamics.
+interaction. Even actions like changing a link's mass or adding a new link while
+physics is running will be helpful to some user. However, it's important to keep
+in mind that handling interactions is considerably more complicated than
+handling editing, primarily because physics engines are usually designed to deal
+with bodies that have immutable kinematics and dynamics.
 
 With that in mind, this design document proposes the separation of features into
 interaction and editing. The central difference between them being that editing
