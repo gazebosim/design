@@ -7,8 +7,8 @@ interactions for Ignition Gazebo.
 
 Ignition Gazebo's graphical interface's high-level goals are to:
 
-1. **Introspect** a running simulation
-2. **Interact** with a running simulation
+1. **Introspect** a running or recorded simulation
+2. **Interact** with a running or recorded simulation
 3. **Edit** simulation worlds and robots
 
 **Introspection** allows users to see how objects are positioned through a 3D
@@ -351,6 +351,26 @@ TODO
 * **Priority**: Could have
 * **References**
 * **User stories**
+
+TODO
+
+#### Physics engine selection
+
+* **Modes**: Edit
+* **Priority**: Could have
+* **References**
+* **User stories**
+  * A user wants to try different physics engines at run time.
+
+TODO
+
+#### Render engine selection
+
+* **Modes**: Edit
+* **Priority**: Could have
+* **References**
+* **User stories**
+  * A user wants to try different render engines at run time.
 
 TODO
 
