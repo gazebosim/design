@@ -135,7 +135,7 @@ as rigid bodies in simulation.
 * **Priority**: Must have
 * **References**
     * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#Addmeshes)
-        * Gazebo-classic's default behavious is to create a link and use the
+        * Gazebo-classic's default behavior is to create a link and use the
           mesh as geometry for both visual and collision.
 * **User stories**
     * User has a 3D mesh and wants to create a rigid model from it.
@@ -296,7 +296,7 @@ writable widgets for components which can be saved to SDF.
 * **References**
 * **User stories**
 
-Visualization of entiites other than visuals, such as collisions, joints,
+Visualization of entities other than visuals, such as collisions, joints,
 sensors, lights, etc.
 
 Similar to Gazebo-classic, these can be reachable from a context menu.
@@ -313,7 +313,7 @@ visuals will need to be implemented.
 
 For interactive mode, user commands are processed by the server. The
 `UserCommands` system is already keeping commands in a queue. Completing
-the implementation will involve implementing the undo / redo behaviour for each
+the implementation will involve implementing the undo / redo behavior for each
 command. There's also the need to revert time and world state.
 
 For edit mode, the command queue can be completely handled by the client.
