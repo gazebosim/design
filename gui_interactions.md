@@ -256,7 +256,7 @@ Available since Acropolis.
     * TODO: link to Ignition tutorial
 * **User stories**
 
-Available since Blueprint.
+Available since Citadel.
 
 #### Joint manipulation
 
