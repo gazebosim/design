@@ -73,6 +73,18 @@ behave accordingly.
 saving can be performed at any time from any mode based on the current state.
 * All entities are editable while in edit mode.
 
+## Lessons from Gazebo-classic
+
+* Exiting the model editor is time consuming because we always save a new SDF
+model. If we'll be using the play button as a toggle for edit mode, we can't do
+the same so we don't hang every time the user unpauses.
+
+* The different interfaces for visualizing properties during simulation and
+during editing caused confusion for users.
+
+* The representation of a model in memory was different according to the
+simulation mode. This meant double the code to be maintained.
+
 ## Features
 
 ### User camera controls
@@ -82,47 +94,47 @@ saving can be performed at any time from any mode based on the current state.
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
 * **References**
-    * TODO: link to Ignition tutorial
+    * [Ignition Citadel: Understanding the GUI](https://ignitionrobotics.org/docs/citadel/gui)
 * **User stories**
     * User wants to look at different parts of the world.
 
-Available since Acropolis.
+✅ Available since Acropolis.
 
 #### Preset view angles
 
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
 * **References**
-    * TODO: link to Ignition tutorial
+    * [Ignition Citadel: View Angle](https://ignitionrobotics.org/docs/citadel/manipulating_models#view-angle)
 * **User stories**
     * User is constructing a world and wants to check how models are aligned from
       different angles.
 
-Available since Blueprint.
+✅ Available since Blueprint.
 
 #### Move to entity
 
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
 * **References**
-    * TODO: link to Ignition tutorial
+    * [Ignition Citadel: The Scene](https://ignitionrobotics.org/docs/citadel/gui#the-scene)
 * **User stories**
     * User is inspecting a large world, and they want to find a specific
       entity.
 
-Available since Blueprint.
+✅ Available since Blueprint.
 
 #### Follow entity
 
 * **Modes**: Interactive
 * **Priority**: Should have
 * **References**
-    * TODO: link to Ignition tutorial
+    * [Ignition Citadel: The Scene](https://ignitionrobotics.org/docs/citadel/gui#the-scene)
 * **User stories**
     * User is simulating a mobile robot and wants to keep it in view at all
       times.
 
-Available since Blueprint.
+✅ Available since Blueprint.
 
 ### Geometry creation
 
@@ -172,12 +184,24 @@ will also need to be added.
 * **User stories**
     * User wants to create a simple vehicle composed of boxes and cylinders.
 
-Choose a primitive shape to use as a visual or collision geometry. Support
-specifying parameters such as size, physical material and visual material.
+Choose a primitive shape to use as a visual or collision geometry with default
+properties. Support box, cylinder and sphere.
 
-The widget would offer a few simple shape options (box, cylinder, sphere). It
-could have additional options on a dropdown, such as material, which would
-define the mass, inertia, and perhaps even visual appearance.
+✅ Available since Blueprint for inserting as whole models.
+
+#### Insert lights
+
+* **Modes**: Edit / Interactive
+* **Priority**: Must have
+* **References**
+    * [Issue: Insert lights from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/119)
+* **User stories**
+    * User needs to light up a specific part of the scene.
+
+Choose a light with default properties to insert into the world, or attached
+to an existing link. Support point, spot and directional lights.
+
+✅ Available since Blueprint.
 
 ### Entity creation
 
@@ -199,21 +223,30 @@ lets the user click on links on the 3D scene to connect them.
 
 #### Create sensors
 
-* **Modes**:
-* **Priority**:
+* **Modes**: Edit / interactive
+* **Priority**: Could have
 * **References**
 * **User stories**
+    * User is assembling a mobile robot and wants to attach an RGB camera to it.
 
-TODO
+This would add a sensor with default properties to an existing link. The user
+would be able to choose the sensor type.
 
 #### Attach plugins
 
-* **Modes**:
-* **Priority**:
+* **Modes**: Edit / interactive
+* **Priority**: Should have
 * **References**
 * **User stories**
+    * User wants to add new functionality to an entity at runtime.
 
-TODO
+Gazebo-classic's model editor supports adding plugins to the model, and the
+user can add custom SDF configuration.
+
+Ignition could support the same, for all entity types.
+
+In the future, it would be nice if plugins could declare their SDF parameters
+so the GUI can display all options to be filled.
 
 #### Insert models
 
@@ -232,6 +265,9 @@ into links to be reused by other models.
 
 In interactive mode, models are spawned into the world at runtime.
 
+Since Blueprint, it's already possible to spawn models by dragging from
+https://app.ignitionrobotics.org.
+
 ### Manipulation
 
 Features related to changing the pose of shapes.
@@ -241,22 +277,22 @@ Features related to changing the pose of shapes.
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
 * **References**
-    * TODO: link to Ignition tutorial
+    * [Ignition Citadel: Transform Control](https://ignitionrobotics.org/docs/citadel/manipulating_models#transform-control)
 * **User stories**
     * User wants to test the robot on a different place in the world, without
       restarting simulation.
 
-Available since Acropolis.
+✅ Available since Acropolis.
 
 #### Align
 
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
 * **References**
-    * TODO: link to Ignition tutorial
+    * [Ignition Citadel: Align Tool](https://ignitionrobotics.org/docs/citadel/manipulating_models#align-tool)
 * **User stories**
 
-Available since Citadel.
+✅ Available since Citadel.
 
 #### Joint manipulation
 
@@ -264,8 +300,6 @@ Available since Citadel.
 * **Priority**: Could have
 * **References**
 * **User stories**
-
-TODO
 
 Manual joint manipulation through its range of motion.
 
@@ -279,22 +313,29 @@ Features related to the user's workflow.
 * **Priority**: Must have
 * **References**
     * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#Edityourmodel)
-    * TODO: link to Ignition tutorial
+    * [Ignition Citadel: Component Inspector](https://ignitionrobotics.org/docs/citadel/manipulating_models#component-inspector)
 * **User stories**
     * User has an SDF model and wants to change the mass of a link.
     * User has an SDF light and wants to change its color.
     * User has an SDF model and wants to change the position of a joint.
 
-Read-only inspector for several component types available from Blueprint.
-Component inspector will need to be updated to support edit mode and enable
-writable widgets for components which can be saved to SDF.
+Read-only inspector for several component types, as well as pose editing,
+available from Blueprint.
+
+More component types need to be made writable, according to the current
+simulation mode.
 
 #### 3D Visualizations
 
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
 * **References**
+    * [Issue: Visualize inertia](https://github.com/ignitionrobotics/ign-gazebo/issues/111)
+    * [Issue: Visualize center of mass](https://github.com/ignitionrobotics/ign-gazebo/issues/110)
+    * [Issue: Visualize joints](https://github.com/ignitionrobotics/ign-gazebo/issues/106)
+    * [Issue: Visualize collision shapes](https://github.com/ignitionrobotics/ign-gazebo/issues/105)
 * **User stories**
+    * User wants to debug a model spawned into simulation.
 
 Visualization of entities other than visuals, such as collisions, joints,
 sensors, lights, etc.
@@ -308,13 +349,17 @@ visuals will need to be implemented.
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
 * **References**
-    * [Gazebo design document](https://bitbucket.org/osrf/gazebo_design/src/default/undo/undo.md)
+    * [Gazebo design document](https://github.com/osrf/gazebo_design/blob/master/undo/undo.md)
 * **User stories**
+    * User wants to debug a model spawned into simulation.
 
 For interactive mode, user commands are processed by the server. The
-`UserCommands` system is already keeping commands in a queue. Completing
-the implementation will involve implementing the undo / redo behavior for each
-command. There's also the need to revert time and world state.
+[UserCommands](https://github.com/ignitionrobotics/ign-gazebo/tree/master/src/systems/user_commands)
+system is already keeping commands in a queue. Completing
+the implementation will involve:
+
+* Implementing the undo / redo behavior for each command.
+* Reverting time and world state.
 
 For edit mode, the command queue can be completely handled by the client.
 
@@ -323,18 +368,27 @@ For edit mode, the command queue can be completely handled by the client.
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
 * **References**
+    * [Issue: Save model states when saving the world](https://github.com/ignitionrobotics/ign-gazebo/issues/137)
+    * [Issue: Right-click and save model](https://github.com/ignitionrobotics/ign-gazebo/issues/138)
 * **User stories**
+    * User has created a world by placing a lot of models and wants to reuse it later.
+    * User has created a model and wants to use it later.
 
 Saving a world or parts of it to an SDF file.
+
+✅ Saving the world is available since Blueprint.
 
 #### Copy / paste
 
 * **Modes**: Edit / Interactive
 * **Priority**: Could have
 * **References**
+    * [Issue: Copy / paste entities from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/102)
 * **User stories**
+    * User created a domino and wants to add several copies of the domino into
+      the world to knock them down.
 
-TODO
+Select one or more entities, then copy (Ctrl+C) and paste (Ctrl+V) somewhere else.
 
 #### Schematic view
 
@@ -343,7 +397,7 @@ TODO
 * **References**
 * **User stories**
 
-TODO
+Display a graph with the parent-child relationships between entities in the world.
 
 #### Simulation speed
 
@@ -353,6 +407,15 @@ TODO
 * **User stories**
 
 TODO
+
+#### Seek back in time
+
+* **Modes**: Interactive
+* **Priority**: Could have
+* **References**
+* **User stories**
+
+Let the user rewind the simulation to a given simulation time.
 
 #### Physics engine selection
 
@@ -383,16 +446,17 @@ TODO
 * **References**
 * **User stories**
 
-TODO
+✅ Available since Blueprint.
 
 #### Log record
 
-* **Modes**: (Edit?) / Interactive
+* **Modes**: Interactive
 * **Priority**: Must have
 * **References**
+    * [Ignition Gazebo: Logging](https://ignitionrobotics.org/api/gazebo/3.0/log.html)
 * **User stories**
 
-TODO
+✅ Available since Blueprint.
 
 ### Materials
 
@@ -424,13 +488,4 @@ TODO
 * **User stories**
 
 TODO
-
-## Lessons from Gazebo-classic
-
-* Exiting the model editor is time consuming because we always save a new SDF
-model. If we'll be using the play button as a toggle for edit mode, we need to
-do something else so we don't hang every time the user unpauses.
-
-* The different interfaces for visualizing properties during simulation and
-during editing caused confusion for users.
 
