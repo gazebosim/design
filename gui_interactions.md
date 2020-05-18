@@ -419,7 +419,7 @@ Display a graph with the parent-child relationships between entities in the worl
 * **User stories**
 * **Status**: ⌛
 
-TODO
+Control target real-time factor from the GUI.
 
 #### E.8 Seek back in time
 
@@ -431,6 +431,8 @@ TODO
 
 Let the user rewind the simulation to a given simulation time.
 
+Includes "Reset world" to time zero.
+
 #### E.9 Physics engine selection
 
 * **Modes**: Edit
@@ -440,7 +442,7 @@ Let the user rewind the simulation to a given simulation time.
   * A user wants to try different physics engines at run time.
 * **Status**: ⌛
 
-TODO
+Change physics engines from the GUI.
 
 #### E.10 Render engine selection
 
@@ -451,7 +453,7 @@ TODO
   * A user wants to try different render engines at run time.
 * **Status**: ⌛
 
-TODO
+Change rendering engines from the GUI.
 
 ### F. Recording
 
@@ -482,7 +484,8 @@ TODO
 * **User stories**
 * **Status**: ⌛
 
-TODO
+Choose a material and apply it to visuals by clicking on them. Gazebo-classic's
+building editor has this feature.
 
 ### H. Introspection
 
@@ -494,15 +497,18 @@ TODO
 * **User stories**
 * **Status**: ⌛
 
-TODO
+Plot values from Ignition Transport topics and Ignition Gazebo components.
 
-#### H.2. Topic viewer
+#### H.2. Sensor data visualization
 
 * **Modes**: Interactive
 * **Priority**: Could have
 * **References**
+    * [Ignition Rendering: Create lidar visualization](https://github.com/ignitionrobotics/ign-rendering/issues/84)
 * **User stories**
 * **Status**: ⌛
 
-TODO
+Ignition GUI's TopicEcho displays any message in text form. Plotting
+will display any number values. This item is about other sensor data,
+like planar lidars.
 
