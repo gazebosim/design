@@ -87,9 +87,9 @@ simulation mode. This meant double the code to be maintained.
 
 ## Features
 
-### User camera controls
+### A. User camera controls
 
-#### Mouse orbiting
+#### A.1.Mouse orbiting
 
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
@@ -97,10 +97,9 @@ simulation mode. This meant double the code to be maintained.
     * [Ignition Citadel: Understanding the GUI](https://ignitionrobotics.org/docs/citadel/gui)
 * **User stories**
     * User wants to look at different parts of the world.
+* **Status**: ✅ Available since Acropolis.
 
-✅ Available since Acropolis.
-
-#### Preset view angles
+#### A.2. Preset view angles
 
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
@@ -109,10 +108,9 @@ simulation mode. This meant double the code to be maintained.
 * **User stories**
     * User is constructing a world and wants to check how models are aligned from
       different angles.
+* **Status**: ✅ Available since Blueprint.
 
-✅ Available since Blueprint.
-
-#### Move to entity
+#### A.3. Move to entity
 
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
@@ -121,10 +119,9 @@ simulation mode. This meant double the code to be maintained.
 * **User stories**
     * User is inspecting a large world, and they want to find a specific
       entity.
+* **Status**: ✅ Available since Blueprint.
 
-✅ Available since Blueprint.
-
-#### Follow entity
+#### A.4. Follow entity
 
 * **Modes**: Interactive
 * **Priority**: Should have
@@ -133,15 +130,14 @@ simulation mode. This meant double the code to be maintained.
 * **User stories**
     * User is simulating a mobile robot and wants to keep it in view at all
       times.
+* **Status**: ✅ Available since Blueprint.
 
-✅ Available since Blueprint.
-
-### Geometry creation
+### B. Geometry creation
 
 Features related to creating and importing geometric shapes to be used
 as rigid bodies in simulation.
 
-#### Import 3D meshes
+#### B.1. Import 3D meshes
 
 * **Modes**: Edit
 * **Priority**: Must have
@@ -151,6 +147,7 @@ as rigid bodies in simulation.
           mesh as geometry for both visual and collision.
 * **User stories**
     * User has a 3D mesh and wants to create a rigid model from it.
+* **Status**: ⌛
 
 Import a mesh file from the local file system to use as a visual or collision
 geometry.
@@ -159,7 +156,7 @@ Ignition supports DAE, OBJ and STL meshes. Implementation of the importing
 widget would involve opening a file browser and spawning the selected file into
 simulation.
 
-#### Extrude 2D shapes
+#### B.2. Extrude 2D shapes
 
 * **Modes**: Edit
 * **Priority**: Could have
@@ -167,6 +164,7 @@ simulation.
     * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=extrude_svg)
 * **User stories**
     * User has a 2D image and wants to extrude that as a geometry for a model.
+* **Status**: ⌛
 
 Extrude a 2D file from the local file system into a 3D shape to use as a visual
 or collision geometry.
@@ -175,7 +173,7 @@ Like on Gazebo-classic, the widget could load an SVG file, let the user choose
 a few parameters, and spawn the shape as collision and visual. Polyline support
 will also need to be added.
 
-#### Insert simple shapes
+#### B.3. Insert simple shapes
 
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
@@ -183,13 +181,12 @@ will also need to be added.
     * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#Addsimpleshapes)
 * **User stories**
     * User wants to create a simple vehicle composed of boxes and cylinders.
+* **Status**: ✅ Available since Blueprint for inserting as whole models.
 
 Choose a primitive shape to use as a visual or collision geometry with default
 properties. Support box, cylinder and sphere.
 
-✅ Available since Blueprint for inserting as whole models.
-
-#### Insert lights
+#### B.4. Insert lights
 
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
@@ -197,17 +194,28 @@ properties. Support box, cylinder and sphere.
     * [Issue: Insert lights from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/119)
 * **User stories**
     * User needs to light up a specific part of the scene.
+* **Status**: ✅ Available since Blueprint.
 
 Choose a light with default properties to insert into the world, or attached
 to an existing link. Support point, spot and directional lights.
 
-✅ Available since Blueprint.
+#### B.5. Scaling tool
 
-### Entity creation
+* **Modes**: Edit
+* **Priority**: Must have
+* **References**
+* **User stories**
+    * User wants to insert a box and 4 cylinders, scale them and assemble a simple vehicle.
+* **Status**: ⌛
+
+The first implementation can be done in edit mode so that the physics engine
+doesn't need to react to size changes in real time (only on unpause).
+
+### C. Entity creation
 
 Features related to assembling or modifying a kinematic structure.
 
-#### Create joints
+#### C.1. Create joints
 
 * **Modes**: Edit
 * **Priority**: Must have
@@ -215,30 +223,33 @@ Features related to assembling or modifying a kinematic structure.
     * [Gazebo tutorial](http://gazebosim.org/tutorials?tut=model_editor#CreateJoints)
 * **User stories**
     * User has several 3D meshes and wants to create an articulated model from it.
+* **Status**: ⌛
 
 Visual tool to aid creating joints between links.
 
 Similar to Gazebo-classic's, a widget which offers several joint options and
 lets the user click on links on the 3D scene to connect them.
 
-#### Create sensors
+#### C.2. Create sensors
 
 * **Modes**: Edit / interactive
 * **Priority**: Could have
 * **References**
 * **User stories**
     * User is assembling a mobile robot and wants to attach an RGB camera to it.
+* **Status**: ⌛
 
 This would add a sensor with default properties to an existing link. The user
 would be able to choose the sensor type.
 
-#### Attach plugins
+#### C.3. Attach plugins
 
 * **Modes**: Edit / interactive
 * **Priority**: Should have
 * **References**
 * **User stories**
     * User wants to add new functionality to an entity at runtime.
+* **Status**: ⌛
 
 Gazebo-classic's model editor supports adding plugins to the model, and the
 user can add custom SDF configuration.
@@ -248,7 +259,7 @@ Ignition could support the same, for all entity types.
 In the future, it would be nice if plugins could declare their SDF parameters
 so the GUI can display all options to be filled.
 
-#### Insert models
+#### C.4. Insert models
 
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
@@ -259,20 +270,19 @@ so the GUI can display all options to be filled.
       to insert into simulation.
     * User is creating an environment for their robot to move in, but they don't
       have any other models locally besides the robot.
+* **Status**: ✅ Since Blueprint, it's already possible to spawn models by dragging from
+https://app.ignitionrobotics.org.
 
 In edit mode, entire models can be inserted as nested models, or broken apart
 into links to be reused by other models.
 
 In interactive mode, models are spawned into the world at runtime.
 
-Since Blueprint, it's already possible to spawn models by dragging from
-https://app.ignitionrobotics.org.
-
-### Manipulation
+### D. Manipulation
 
 Features related to changing the pose of shapes.
 
-#### Translation and rotation tool
+#### D.1. Translation and rotation tool
 
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
@@ -281,33 +291,32 @@ Features related to changing the pose of shapes.
 * **User stories**
     * User wants to test the robot on a different place in the world, without
       restarting simulation.
+* **Status**: ✅ Available since Acropolis.
 
-✅ Available since Acropolis.
-
-#### Align
+#### D.2. Align
 
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
 * **References**
     * [Ignition Citadel: Align Tool](https://ignitionrobotics.org/docs/citadel/manipulating_models#align-tool)
 * **User stories**
+* **Status**: ✅ Available since Citadel.
 
-✅ Available since Citadel.
-
-#### Joint manipulation
+#### D.3. Joint manipulation
 
 * **Modes**: Edit / Interactive
 * **Priority**: Could have
 * **References**
 * **User stories**
+* **Status**: ⌛
 
 Manual joint manipulation through its range of motion.
 
-### Workflow
+### E. Workflow
 
 Features related to the user's workflow.
 
-#### Property inspector
+#### E.1. Property inspector
 
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
@@ -318,14 +327,13 @@ Features related to the user's workflow.
     * User has an SDF model and wants to change the mass of a link.
     * User has an SDF light and wants to change its color.
     * User has an SDF model and wants to change the position of a joint.
-
-Read-only inspector for several component types, as well as pose editing,
+* **Status**: ✅ Read-only inspector for several component types, as well as pose editing,
 available from Blueprint.
 
 More component types need to be made writable, according to the current
 simulation mode.
 
-#### 3D Visualizations
+#### E.2. 3D Visualizations
 
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
@@ -336,6 +344,7 @@ simulation mode.
     * [Issue: Visualize collision shapes](https://github.com/ignitionrobotics/ign-gazebo/issues/105)
 * **User stories**
     * User wants to debug a model spawned into simulation.
+* **Status**: ⌛
 
 Visualization of entities other than visuals, such as collisions, joints,
 sensors, lights, etc.
@@ -344,7 +353,7 @@ Similar to Gazebo-classic, these can be reachable from a context menu.
 Visibility options could also be added to the component inspector. Rendering
 visuals will need to be implemented.
 
-#### Undo / redo
+#### E.3. Undo / redo
 
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
@@ -352,6 +361,7 @@ visuals will need to be implemented.
     * [Gazebo design document](https://github.com/osrf/gazebo_design/blob/master/undo/undo.md)
 * **User stories**
     * User wants to debug a model spawned into simulation.
+* **Status**: ⌛
 
 For interactive mode, user commands are processed by the server. The
 [UserCommands](https://github.com/ignitionrobotics/ign-gazebo/tree/master/src/systems/user_commands)
@@ -363,7 +373,7 @@ the implementation will involve:
 
 For edit mode, the command queue can be completely handled by the client.
 
-#### Save to SDF
+#### E.4. Save to SDF
 
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
@@ -373,12 +383,12 @@ For edit mode, the command queue can be completely handled by the client.
 * **User stories**
     * User has created a world by placing a lot of models and wants to reuse it later.
     * User has created a model and wants to use it later.
+* **Status**: ✅ Saving the world is available since Blueprint.
 
 Saving a world or parts of it to an SDF file.
 
-✅ Saving the world is available since Blueprint.
 
-#### Copy / paste
+#### E.5. Copy / paste
 
 * **Modes**: Edit / Interactive
 * **Priority**: Could have
@@ -387,105 +397,112 @@ Saving a world or parts of it to an SDF file.
 * **User stories**
     * User created a domino and wants to add several copies of the domino into
       the world to knock them down.
+* **Status**: ⌛
 
 Select one or more entities, then copy (Ctrl+C) and paste (Ctrl+V) somewhere else.
 
-#### Schematic view
+#### E.6. Schematic view
 
 * **Modes**: Edit / Interactive
 * **Priority**: Could have
 * **References**
 * **User stories**
+* **Status**: ⌛
 
 Display a graph with the parent-child relationships between entities in the world.
 
-#### Simulation speed
+#### E.7 Simulation speed
 
 * **Modes**: Interactive
 * **Priority**: Could have
 * **References**
 * **User stories**
+* **Status**: ⌛
 
 TODO
 
-#### Seek back in time
+#### E.8 Seek back in time
 
 * **Modes**: Interactive
 * **Priority**: Could have
 * **References**
 * **User stories**
+* **Status**: ⌛
 
 Let the user rewind the simulation to a given simulation time.
 
-#### Physics engine selection
+#### E.9 Physics engine selection
 
 * **Modes**: Edit
 * **Priority**: Could have
 * **References**
 * **User stories**
   * A user wants to try different physics engines at run time.
+* **Status**: ⌛
 
 TODO
 
-#### Render engine selection
+#### E.10 Render engine selection
 
 * **Modes**: Edit
 * **Priority**: Could have
 * **References**
 * **User stories**
   * A user wants to try different render engines at run time.
+* **Status**: ⌛
 
 TODO
 
-### Recording
+### F. Recording
 
-#### Video creator
+#### F.1. Video creator
 
 * **Modes**: Edit / Interactive
 * **Priority**: Could have
 * **References**
 * **User stories**
+* **Status**: ✅ Available since Blueprint.
 
-✅ Available since Blueprint.
-
-#### Log record
+#### F.2. Log record
 
 * **Modes**: Interactive
 * **Priority**: Must have
 * **References**
     * [Ignition Gazebo: Logging](https://ignitionrobotics.org/api/gazebo/3.0/log.html)
 * **User stories**
+* **Status**: ✅ Available since Blueprint.
 
-✅ Available since Blueprint.
+### G. Materials
 
-### Materials
-
-#### Set materials on 3D
+#### G.1. Set materials on 3D
 
 * **Modes**: Edit
 * **Priority**: Could have
 * **References**
 * **User stories**
+* **Status**: ⌛
 
 TODO
 
-### Introspection
+### H. Introspection
 
-#### Plotting
+#### H.1. Plotting
 
 * **Modes**: Interactive
 * **Priority**: Could have
 * **References**
 * **User stories**
+* **Status**: ⌛
 
 TODO
 
-#### Topic viewer
+#### H.2. Topic viewer
 
 * **Modes**: Interactive
 * **Priority**: Could have
 * **References**
 * **User stories**
+* **Status**: ⌛
 
 TODO
 
