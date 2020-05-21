@@ -55,6 +55,7 @@ While implementing these different modes of operation, it's important to:
 * Keep the user interface consistent across modes.
 * Reduce context switching when changing modes.
 * Reduce code duplication for different modes.
+* Make it clear to the user which mode they're in.
 
 To keep the UI's look and feel consistent across modes, the same GUI plugins
 should be used for interaction and editing whenever possible. These plugins
@@ -67,6 +68,9 @@ be writable while simulation is running.
 
 * Switching between Edit and Interactive modes will be accomplished through the
 play / pause button.
+* We should give visual clues to the user about what mode they're in. On
+Gazebo-classic, models not being edited would turn white. Users won't be editing
+a single model at a time on Ignition, so we need other clues.
 * It's up to each GUI plugin to be aware of the current simulation mode and
 behave accordingly.
 * SDF generation and saving won't be performed when exiting edit mode. Instead,
