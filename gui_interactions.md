@@ -91,6 +91,17 @@ simulation mode. This meant double the code to be maintained.
 
 ## Features
 
+This list of features is meant to give an overall idea of Ignition's GUI
+features to contextualize the design above.
+
+**This is not an exhaustive list nor a roadmap.**
+
+See [Ignition's roadmap](https://ignitionrobotics.org/docs/all/roadmap) for
+what the team is planning to work on.
+
+Detailed information about each feature should be in
+[public issues](https://github.com/search?q=org%3Aignitionrobotics&state=open&type=Issues).
+
 ### A. User camera controls
 
 #### A.1.Mouse orbiting
@@ -190,15 +201,15 @@ will also need to be added.
 Choose a primitive shape to use as a visual or collision geometry with default
 properties. Support box, cylinder and sphere.
 
-#### B.4. Insert lights
+#### B.4. Insert simple lights
 
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
 * **References**
-    * [Issue: Insert lights from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/119)
 * **User stories**
     * User needs to light up a specific part of the scene.
-* **Status**: ✅ Available since Blueprint.
+* **Status**: ⌛
+    * [Issue: Insert lights from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/119)
 
 Choose a light with default properties to insert into the world, or attached
 to an existing link. Support point, spot and directional lights.
@@ -342,13 +353,13 @@ simulation mode.
 * **Modes**: Edit / Interactive
 * **Priority**: Should have
 * **References**
+* **User stories**
+    * User wants to debug a model spawned into simulation.
+* **Status**: ⌛
     * [Issue: Visualize inertia](https://github.com/ignitionrobotics/ign-gazebo/issues/111)
     * [Issue: Visualize center of mass](https://github.com/ignitionrobotics/ign-gazebo/issues/110)
     * [Issue: Visualize joints](https://github.com/ignitionrobotics/ign-gazebo/issues/106)
     * [Issue: Visualize collision shapes](https://github.com/ignitionrobotics/ign-gazebo/issues/105)
-* **User stories**
-    * User wants to debug a model spawned into simulation.
-* **Status**: ⌛
 
 Visualization of entities other than visuals, such as collisions, joints,
 sensors, lights, etc.
@@ -374,6 +385,7 @@ the implementation will involve:
 
 * Implementing the undo / redo behavior for each command.
 * Reverting time and world state.
+* Limiting the history size.
 
 For edit mode, the command queue can be completely handled by the client.
 
@@ -382,12 +394,14 @@ For edit mode, the command queue can be completely handled by the client.
 * **Modes**: Edit / Interactive
 * **Priority**: Must have
 * **References**
-    * [Issue: Save model states when saving the world](https://github.com/ignitionrobotics/ign-gazebo/issues/137)
-    * [Issue: Right-click and save model](https://github.com/ignitionrobotics/ign-gazebo/issues/138)
 * **User stories**
     * User has created a world by placing a lot of models and wants to reuse it later.
     * User has created a model and wants to use it later.
-* **Status**: ✅ Saving the world is available since Blueprint.
+* **Status**:
+    * ✅ Saving the world is available since Blueprint.
+    * Saving models is ⌛
+        * [Issue: Save model states when saving the world](https://github.com/ignitionrobotics/ign-gazebo/issues/137)
+        * [Issue: Right-click and save model](https://github.com/ignitionrobotics/ign-gazebo/issues/138)
 
 Saving a world or parts of it to an SDF file.
 
@@ -397,11 +411,11 @@ Saving a world or parts of it to an SDF file.
 * **Modes**: Edit / Interactive
 * **Priority**: Could have
 * **References**
-    * [Issue: Copy / paste entities from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/102)
 * **User stories**
     * User created a domino and wants to add several copies of the domino into
       the world to knock them down.
 * **Status**: ⌛
+    * [Issue: Copy / paste entities from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/102)
 
 Select one or more entities, then copy (Ctrl+C) and paste (Ctrl+V) somewhere else.
 
@@ -412,6 +426,7 @@ Select one or more entities, then copy (Ctrl+C) and paste (Ctrl+V) somewhere els
 * **References**
 * **User stories**
 * **Status**: ⌛
+    * [Issue: Schematic view](https://github.com/ignitionrobotics/ign-gazebo/issues/163)
 
 Display a graph with the parent-child relationships between entities in the world.
 
@@ -500,6 +515,7 @@ building editor has this feature.
 * **References**
 * **User stories**
 * **Status**: ⌛
+    * [Issue: Plotting tool](https://github.com/ignitionrobotics/ign-gazebo/issues/66)
 
 Plot values from Ignition Transport topics and Ignition Gazebo components.
 
@@ -508,9 +524,9 @@ Plot values from Ignition Transport topics and Ignition Gazebo components.
 * **Modes**: Interactive
 * **Priority**: Could have
 * **References**
-    * [Ignition Rendering: Create lidar visualization](https://github.com/ignitionrobotics/ign-rendering/issues/84)
 * **User stories**
 * **Status**: ⌛
+    * [Issue: Create lidar visualization](https://github.com/ignitionrobotics/ign-rendering/issues/84)
 
 Ignition GUI's TopicEcho displays any message in text form. Plotting
 will display any number values. This item is about other sensor data,
