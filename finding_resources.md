@@ -59,10 +59,10 @@ For example, users can use the full path when loading a world on Ignition Gazebo
 
 `ign gazebo /absolute/path/to/file.sdf`
 
-We should strive to support loading resources from their full paths throughout
-the Ignition stack. That's not because we encourage users to use this approach
-alone, but because it's helpful while debugging and in general users expect
-that to work.
+We should strive to support loading **all kinds of resources** from their full
+paths throughout the Ignition stack. That's not because we encourage users to
+use this approach alone, but because it's helpful while debugging and in general
+users expect that to work.
 
 ### Full URL
 
@@ -84,8 +84,8 @@ to be loaded by Ignition Gazebo:
 Loading resources from the internet lets users pull from a common updated
 source instead of having all the files they need on disk at all times.
 
-Ignition developers should strive to support full Fuel URLs for all resources
-that are supported on the online platform. The primary interface to the web
+Ignition developers should strive to support full Fuel URLs for **all resources
+that are supported on the online platform**. The primary interface to the web
 servers should be Ignition Fuel Tools. It's discouraged to make direct
 REST calls to the server from within Ignition libraries because that would
 give us a larger surface to maintain.
@@ -115,14 +115,17 @@ Once the scheme is stripped, the paths will look like simple relative paths:
 
 * `my_model/meshes/shape.stl`
 
+Ignition developers should always fallback to stripping schemes after failing
+to load resources with a scheme, **for all resource types**.
+
 #### Prefixes
 
 **Installation path**
 
 Libraries may install resources such as plugins and worlds that can be found at
 runtime. In general, libraries that handle a given resource type should
-automatically find all resources of that type that are installed by all
-Ignition libraries.
+automatically find **all resources of that type that are installed by all
+Ignition libraries**.
 
 For example, users can load GUI plugins installed with both Ignition Gazebo and
 Ignition GUI by referring to their shared library's filename stripped of the
@@ -161,6 +164,9 @@ ign gazebo --physics-engine CustomEngine
 Reading paths from environment variables gives users and packages a quick way
 to add support for custom paths.
 
+**All resource types** should be searchable by at least one environment
+variable.
+
 **Current directory**
 
 When running an application from the command line, often users expect that
@@ -173,6 +179,10 @@ loading an Ignition Launch file:
 
 Similar to absolute paths, the use of paths relative to the current working
 directory can be handy for users.
+
+**All resources that are loaded from the command line** must support paths
+relative to the current directory. This is optional for files that are
+referenced from other files, like textures.
 
 **Current file path**
 
@@ -198,6 +208,9 @@ The `model.sdf` file can refer to `my_mesh.dae` as:
 Accepting relative paths within files makes it convenient to work with
 resources that consist of several files that reference each other.
 
+**All resources that are references from another file** must support paths
+relative to the original file.
+
 **Common home directory**
 
 Directories under `$HOME/.ignition/<library_name>` can also be used as a default
@@ -219,6 +232,8 @@ Gazebo will always look for system plugins.
 
 A central location is useful for users who just want to put their files in a
 location where they will always be found with minimal setup.
+
+**All resource types** should have at least one search path under `~/.ignition`.
 
 ## Precedence
 
