@@ -15,6 +15,7 @@ each type of resource is found, please check
 * [Ways of finding resources](#ways-of-finding-resources)
    * [Full path](#full-path)
    * [Full URL](#full-url)
+   * [Custom callbacks](#custom-callbacks)
    * [Relative paths](#relative-paths)
       * [Schemes](#schemes)
       * [Prefixes](#prefixes)
@@ -93,6 +94,18 @@ give us a larger surface to maintain.
 Developers shouldn't assume that every `http` scheme is coming from Fuel.
 Instead, they should provide ways for downstream developers to register
 callbacks to handle their own web servers.
+
+### Custom callbacks
+
+Downstream developers often want to load resources in custom ways. Maybe they
+have a custom scheme to support, or their own web server to fetch files from.
+
+It's not always useful for downstream users to inject their own logic to
+load resources though. For example, there's not a clear use case for
+finding Ignition Transport log files with custom schemes at the moment.
+Therefore, Ignition developers should strive to expose custom callbacks
+**when downstream users request this feature** but this should not be
+a requirement for all types of resources.
 
 ### Relative paths
 
