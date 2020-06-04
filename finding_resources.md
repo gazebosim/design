@@ -2,13 +2,23 @@
 
 This document offers guidelines and rationales for the various mechanisms
 used throughout Ignition to find resources (files) at runtime. File types
-include but are not limited to plugins (shared libraries), world
+include, but are not limited to, plugins (shared libraries), world
 descriptions (SDF files) and graphics files like meshes and textures.
 
 This is not meant to list all the specifics of how Ignition finds each resource,
 although it may mention some as examples. For an exhaustive explanation of how
 each type of resource is found, please check
 [Ignition Gazebo's Finding resources tutorial](https://ignitionrobotics.org/api/gazebo/3.0/resources.html).
+
+**Table of Contents**
+
+* [Ways of finding resources](#ways-of-finding-resources)
+   * [Full path](#full-path)
+   * [Full URL](#full-url)
+   * [Relative paths](#relative-paths)
+      * [Schemes](#schemes)
+      * [Prefixes](#prefixes)
+* [Precedence](#precedence)
 
 ## Ways of finding resources
 
@@ -54,7 +64,7 @@ the Ignition stack. That's not because we encourage users to use this approach
 alone, but because it's helpful while debugging and in general users expect
 that to work.
 
-## Full URL
+### Full URL
 
 Ignition's official online database of resources is
 [Ignition Fuel](https://app.ignitionrobotics.org/). The
@@ -84,25 +94,28 @@ Developers shouldn't assume that every `http` scheme is coming from Fuel.
 Instead, they should provide ways for downstream developers to register
 callbacks to handle their own web servers.
 
-## Relative paths
+### Relative paths
 
 When a path is relative, it means that it must be prefixed by an absolute
 path before loading.
 
-### Schemes
+#### Schemes
 
-Ignition's internal mechanisms will treat relative paths with schemes like
-any other relative path and simply strip the scheme. However, downstream
-libraries are welcome to handle special schemes as they wish.
+Ignition's internal mechanisms will treat all schemes the same way, by
+stripping them from the path. However, downstream libraries are welcome to
+handle special schemes as they wish.
 
 That means that for Ignition, the following are equivalent:
 
 * `model://my_model/meshes/shape.stl`
 * `package://my_model/meshes/shape.stl`
 * `banana://my_model/meshes/shape.stl`
+
+Once the scheme is stripped, the paths will look like simple relative paths:
+
 * `my_model/meshes/shape.stl`
 
-### Prefixes
+#### Prefixes
 
 **Installation path**
 
@@ -201,8 +214,8 @@ The initial file on that location is copied from the `gui.config` that is
 installed with Ignition Gazebo. But the user can edit it to change the style
 of their windows without affecting other users.
 
-Another example is the `$HOME/.ignition/gazebo/plugins`, where Ignition Gazebo
-will always look for system plugins.
+Another example is the `$HOME/.ignition/gazebo/plugins` directory, where Ignition
+Gazebo will always look for system plugins.
 
 A central location is useful for users who just want to put their files in a
 location where they will always be found with minimal setup.
