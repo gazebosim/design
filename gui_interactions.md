@@ -163,6 +163,7 @@ as rigid bodies in simulation.
 * **User stories**
     * User has a 3D mesh and wants to create a rigid model from it.
 * **Status**: ⌛
+   * [Issue: Import 3D meshes from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/185)
 
 Import a mesh file from the local file system to use as a visual or collision
 geometry.
@@ -180,6 +181,7 @@ simulation.
 * **User stories**
     * User has a 2D image and wants to extrude that as a geometry for a model.
 * **Status**: ⌛
+    * [Issue: Interface to extrude SVGs into geometries](https://github.com/ignitionrobotics/ign-gazebo/issues/187)
 
 Extrude a 2D file from the local file system into a 3D shape to use as a visual
 or collision geometry.
@@ -222,6 +224,7 @@ to an existing link. Support point, spot and directional lights.
 * **User stories**
     * User wants to insert a box and 4 cylinders, scale them and assemble a simple vehicle.
 * **Status**: ⌛
+    * [Issue: Support scaling simple shapes](https://github.com/ignitionrobotics/ign-physics/issues/65)
 
 The first implementation can be done in edit mode so that the physics engine
 doesn't need to react to size changes in real time (only on unpause).
@@ -239,11 +242,9 @@ Features related to assembling or modifying a kinematic structure.
 * **User stories**
     * User has several 3D meshes and wants to create an articulated model from it.
 * **Status**: ⌛
+    * [Issue: Create joints from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/188)
 
 Visual tool to aid creating joints between links.
-
-Similar to Gazebo-classic's, a widget which offers several joint options and
-lets the user click on links on the 3D scene to connect them.
 
 #### C.2. Create sensors
 
@@ -253,6 +254,10 @@ lets the user click on links on the 3D scene to connect them.
 * **User stories**
     * User is assembling a mobile robot and wants to attach an RGB camera to it.
 * **Status**: ⌛
+    * [Issue: Create sensors from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/189)
+
+Similar to Gazebo-classic's, a widget which offers several joint options and
+lets the user click on links on the 3D scene to connect them.
 
 This would add a sensor with default properties to an existing link. The user
 would be able to choose the sensor type.
@@ -265,14 +270,7 @@ would be able to choose the sensor type.
 * **User stories**
     * User wants to add new functionality to an entity at runtime.
 * **Status**: ⌛
-
-Gazebo-classic's model editor supports adding plugins to the model, and the
-user can add custom SDF configuration.
-
-Ignition could support the same, for all entity types.
-
-In the future, it would be nice if plugins could declare their SDF parameters
-so the GUI can display all options to be filled.
+    * [Issue: Insert system plugins from the GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/190)
 
 #### C.4. Insert models
 
@@ -324,8 +322,7 @@ Features related to changing the pose of shapes.
 * **References**
 * **User stories**
 * **Status**: ⌛
-
-Manual joint manipulation through its range of motion.
+    * [Issue: Joint controller GUI](https://github.com/ignitionrobotics/ign-gazebo/issues/192)
 
 ### E. Workflow
 
@@ -377,6 +374,7 @@ visuals will need to be implemented.
 * **User stories**
     * User wants to debug a model spawned into simulation.
 * **Status**: ⌛
+    * [Issue: Undo / redo](https://github.com/ignitionrobotics/ign-gazebo/issues/104)
 
 For interactive mode, user commands are processed by the server. The
 [UserCommands](https://github.com/ignitionrobotics/ign-gazebo/tree/master/src/systems/user_commands)
