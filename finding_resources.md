@@ -12,6 +12,7 @@ each type of resource is found, please check
 
 **Table of Contents**
 
+* [Precedence](#precedence)
 * [Ways of finding resources](#ways-of-finding-resources)
    * [Full path](#full-path)
    * [Full URL](#full-url)
@@ -19,7 +20,59 @@ each type of resource is found, please check
    * [Relative paths](#relative-paths)
       * [Schemes](#schemes)
       * [Prefixes](#prefixes)
-* [Precedence](#precedence)
+
+## Precedence
+
+There are many ways of referring to a file. Likewise, one path may match
+several files.
+
+For example, let's assume that all these files exist:
+
+```
+/tmp/worlds/shapes.sdf
+/tmp/more_worlds/shapes.sdf
+/home/user/shapes.sdf
+/usr/share/ignition/ignition-gazebo2/worlds/shapes.sdf
+```
+
+When the user does the following, which file gets loaded?
+
+```
+cd /home/user
+IGN_GAZEBO_RESOURCE_PATH=/tmp/worlds:/more_worlds
+ign gazebo shapes.sdf
+```
+
+It's necessary to have a consistent way of prioritizing which approach
+precedes others, so that the user knows what to expect.
+
+The general guideline for precedence is to go **from the most custom to the most
+standard**. The most custom methods can be easily changed by the user at runtime,
+while the least custom ones would require recompiling a library.
+
+On the example above, it's most likely safe to assume that the user
+didn't want to load the world that is installed with Ignition Gazebo, otherwise
+they wouldn't have gone through the trouble of moving directory and setting
+an environment variable. But in the end, we can never know for sure what the
+user really meant. They could happen to be in that directory, and
+the variable may have been set by another application that appended it to
+`~/.bashrc`.
+
+That is to say that there's no perfect solution. But at least by keeping
+consistency users can refer back to these guidelines and understand
+what to expect.
+
+Thus, Ignition should look for resources in the following order:
+
+1. Full path
+2. Environment variables
+3. Path relative to current directory
+4. Common home directory
+5. Custom callbacks set by downstream developers
+6. Fuel URL (Fuel checks cache first)
+7. Resources installed with Ignition
+
+These methods will be explained in detail on the following section.
 
 ## Ways of finding resources
 
@@ -71,7 +124,7 @@ Ignition's official online database of resources is
 [Ignition Fuel](https://app.ignitionrobotics.org/). The
 [Ignition Fuel Tools](https://ignitionrobotics.org/libs/fuel_tools)
 library provides a command line tool, as well as a C++ API to manage these
-online resouces.
+online resources.
 
 For example, users can use Fuel URLs when including a model into a world
 to be loaded by Ignition Gazebo:
@@ -247,55 +300,4 @@ A central location is useful for users who just want to put their files in a
 location where they will always be found with minimal setup.
 
 **All resource types** should have at least one search path under `~/.ignition`.
-
-## Precedence
-
-There are many ways of referring to a file. Likewise, one path may match
-several files.
-
-For example, let's assume that all these files exist:
-
-```
-/tmp/worlds/shapes.sdf
-/tmp/more_worlds/shapes.sdf
-/home/user/shapes.sdf
-/usr/share/ignition/ignition-gazebo2/worlds/shapes.sdf
-```
-
-When the user does the following, which file gets loaded?
-
-```
-cd /home/user
-IGN_GAZEBO_RESOURCE_PATH=/tmp/worlds:/more_worlds
-ign gazebo shapes.sdf
-```
-
-It's necessary to have a consistent way of prioritizing which approach
-preceeds others, so that the user knows what to expect.
-
-The general guideline for precedence is to go **from the most custom to the most
-standard**. The most custom methods can be easily changed by the user at runtime,
-while the least custom ones would require recompiling a library.
-
-On the example above, it's most likely safe to assume that the user
-didn't want to load the world that is installed with Ignition Gazebo, otherwise
-they wouldn't have gone through the trouble of moving directory and setting
-an environment variable. But in the end, we can never know for sure what the
-user really meant. They could happen to be in that directory, and
-the variable may have been set by another application that appended it to
-`~/.bashrc`.
-
-That is to say that there's no perfect solution. But at least by keeping
-consistency users can refer back to these guidelines and understand
-what to expect.
-
-Thus, Ignition should look for resources in the following order:
-
-1. Environment variables
-2. Path relative to current directory
-3. Full path
-4. Common home directory
-5. Custom callbacks set by downstream developers
-6. Fuel URL (Fuel checks cache first)
-7. Resources installed with Ignition
 
