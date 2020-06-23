@@ -62,17 +62,10 @@ That is to say that there's no perfect solution. But at least by keeping
 consistency users can refer back to these guidelines and understand
 what to expect.
 
-Thus, Ignition should look for resources in the following order:
+Various methods will be explained in detail on the following section. Here's
+a high-level flow chart of the order in which they should be used:
 
-1. Full path
-2. Environment variables
-3. Path relative to current directory
-4. Common home directory
-5. Custom callbacks set by downstream developers
-6. Fuel URL (Fuel checks cache first)
-7. Resources installed with Ignition
-
-These methods will be explained in detail on the following section.
+![Resource flow chart](images/resource_flow_chart.png)
 
 ## Ways of finding resources
 
@@ -145,19 +138,19 @@ REST calls to the server from within Ignition libraries because that would
 give us a larger surface to maintain.
 
 Developers shouldn't assume that every `http` scheme is coming from Fuel.
-Instead, they should provide ways for downstream developers to register
+Instead, they should provide ways for downstream projects to register
 callbacks to handle their own web servers.
 
 ### Custom callbacks
 
-Downstream developers often want to load resources in custom ways. Maybe they
+Downstream projects often want to load resources in custom ways. Maybe they
 have a custom scheme to support, or their own web server to fetch files from.
 
-It's not always useful for downstream users to inject their own logic to
+It's not always useful for downstream projects to inject their own logic to
 load resources though. For example, there's not a clear use case for
 finding Ignition Transport log files with custom schemes at the moment.
 Therefore, Ignition developers should strive to expose custom callbacks
-**when downstream users request this feature** but this should not be
+**when downstream projects request this feature** but this should not be
 a requirement for all types of resources.
 
 ### Relative paths
@@ -168,7 +161,7 @@ path before loading.
 #### Schemes
 
 Ignition's internal mechanisms will treat all schemes the same way, by
-stripping them from the path. However, downstream libraries are welcome to
+stripping them from the path. However, downstream projects are welcome to
 handle special schemes as they wish.
 
 That means that for Ignition, the following are equivalent:
