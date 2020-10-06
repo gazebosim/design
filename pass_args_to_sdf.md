@@ -1,8 +1,10 @@
-# Overview
+# Pass arguments to SDF files
+
+## Overview
 
 The goal of passing arguments to SDF files is to allow a user to send custom data into a model or world file and prevent model/world file duplication. Currently, there are multiple robot models with the same base but different sensor configurations. For example, in [SubT's robots](https://github.com/osrf/subt/wiki/Robots), X1 has 8-10 different sensor configurations but all have the same base. If we take a look at all the different configurations in [Fuel](https://app.ignitionrobotics.org/), we see that they are essentially copies of each other but with different sensors or different parameters for these sensors. The aim of adding parameter support is to avoid this duplication, where a model/world file contains all configurations with default parameters and a user may update and/or override certain parameters as desired.
 
-## Features
+### Features
 
 The list of intended **primary features** include:
 * Sending data from a world or launch file into a model (e.g., topic names, change parameter values in model(s))
@@ -11,11 +13,11 @@ The list of intended **primary features** include:
 **Secondary features** include:
 * Add support to [ign-fuel-tools](https://github.com/ignitionrobotics/ign-fuel-tools) and [Fuel](https://app.ignitionrobotics.org/) web application
 
-## Need to consider:
+### Need to consider:
 
 * Do other libraries (e.g., [ign-physics](https://github.com/ignitionrobotics/ign-physics)) need this capability?
 
-# Implementation
+## Implementation
 
 The initial question was whether this process should be a [SDF](http://sdformat.org/) or [ign-gazebo](https://github.com/ignitionrobotics/ign-gazebo) feature. The conclusion is that this will most likely be implemented in ign-gazebo. The reasoning behind this is other organizations use SDF with other simulators, which raises concerns that it could affect their work. Also, this desired argument passing process is intended for ign-gazebo use. Although there may be minor updates to SDFormat and/or libsdformat, the current plan is to implement the main functionality in ign-gazebo. Below describes the current idea to design this new feature.
 
@@ -29,7 +31,7 @@ The figure above shows the possible new implementation for the gazebo `Server` (
 
 The reason for this solution is when a file is loaded to a `SDFPtr` then to a DOM object, it is possible that the DOM object and SDF element are not insync. Meaning, modifying the DOM object may not propagate these changes. Therefore the solution was to modify the `SDFPtr` before it is created into a DOM object.
 
-## Parameter Specification
+### Parameter Specification
 
 Parameters will be specified by the user in either launch (`.ign`) or world (`.sdf`) files through the use of model [composition (or nested models)](http://sdformat.org/tutorials?tut=composition) which will contain `<include>` tags and [custom elements](http://sdformat.org/tutorials?tut=custom_elements_attributes_proposal&cat=pose_semantics_docs). Model composition provides a way to create a model by nesting other models within itself. Discussed in this section is the proposed design for specifying parameters and the actions available to the user. The intent is to provide a means of manipulating almost all parameters in SDF models through launch/world files without requiring modifications to already existing/created model files. There is a limitation with this proposed approach with specifying plugins since plugins may not have unique names. This will be elaborated later on as well as a potential method of resolving this will be discussed, which may require a user to slightly modify the original model.
 
@@ -171,7 +173,7 @@ When a user wants to `add` an element that does not exist in the original model,
 
 In this example, the `<visual>` element named "camera_visual" will be added as a child of `<link name="chassis">`. A check will be performed to ensure that the element does not already exist. If it does exist, then a warning/error will be printed and the element will be skipped. The process of skipping elements will also occur when the user uses the `modify`, `replace`, and/or `remove` actions and the element is not found in the original model.
 
-# Limitations
+## Limitations
 
 This method of identifying an element using the name of the source element and its parents, will not work properly with plugins listed in the original model since they are not required to be unique (see [breadcrumbs example](https://github.com/ignitionrobotics/ign-gazebo/blob/e89fc21763ba59ddc4054bbd2f1dbed491d55965/test/worlds/breadcrumbs.sdf#L388)). A proposed solution to this problem is to require the user to add the custom attribute `gazebo:id` to the original file, then instead of using the `name` of the element as the identifier, the `id` will be used. For example, the original model would need to look like:
 
