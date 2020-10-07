@@ -29,7 +29,7 @@ The figure above shows the current process, where the gazebo `Server` takes in a
 
 The figure above shows the possible new implementation for the gazebo `Server` (shown in green). Where the server calls `readFile` to load `sdfParsed`. Then the contents of `sdfParsed` will be modified with the new updated parameters set by the user. Finally, `sdfRoot.Load(sdfParsed)` will be called to set up the DOM object.
 
-The reason for this solution is when a file is loaded to a `SDFPtr` then to a DOM object, it is possible that the DOM object and SDF element are not insync. Meaning, modifying the DOM object may not propagate these changes. Therefore the solution was to modify the `SDFPtr` before it is created into a DOM object.
+The reason for this solution is when a file is loaded to a `SDFPtr` then to a DOM object, it is possible that the DOM object and SDF element are not insync. Meaning, modifying the DOM object may not propagate these changes. Therefore the solution was to modify the `SDFPtr` before it is created into a DOM object. Also, the advantage of using the `SDFPtr` (i.e., `sdfParsed`) is that we can utilize libsdformat's API (e.g., [Element](http://osrf-distributions.s3.amazonaws.com/sdformat/api/9.0.0/classsdf_1_1v9_1_1Element.html) class) to update elements as opposed to using some other XML parser.
 
 ### Parameter Specification
 
