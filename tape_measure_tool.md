@@ -62,7 +62,7 @@ the top bar so UI simplicity is desired. A simple mock-up is as follows.  The
 yellow color of the tape measure was simply chosen as it was the most
 contrasting color in the shapes scene, but this color is likely to change.
 The "New Measurement" rectangle is a button that the user can press to
-initiate a new measurement.  It may also be helpful to play an xyz axis at the
+initiate a new measurement.  It may also be helpful to display an xyz axis at the
 origin of point A.
 
 ![Tape measure UI](images/tape_ui.png)
