@@ -5,8 +5,7 @@ Ignition Dome and onwards.  The reasoning for the targeting of Dome is largely
 due to the snapping behavior which needs bounding boxes.  If this measurement
 tool is needed for Citadel, I can try to make a prototype version that doesn't
 have any of the more complex snapping capabilities and target it towards
-Citadel. There is an issue out for similar type improvements [here](https://github.com/ignitionrobotics/ign-gazebo/issues/158)
-that I expect to add this information to the Component Inspector.
+Citadel.
 
 ## Purpose
 
@@ -22,7 +21,10 @@ entity scaling.  On a tangent, the dimensional data of an entity, which I
 assume will be a reason for which this tool will be used the most, could also
 likely be placed within the Component Inspector plugin so the user isn't left
 clicking all of the bounds of an entity and having to manually keep track of
-the entity's dimensions themselves.
+the entity's dimensions themselves. There is an issue out for similar type
+improvements [here](https://github.com/ignitionrobotics/ign-gazebo/issues/158)
+where I expect to eventully add this information to the Component Inspector.
+
 
 ## Functionality
 
