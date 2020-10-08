@@ -37,9 +37,9 @@ I expect the user experience to be something like the following:
     the tape measure tool.  There could also be a hotkey to start a new
     measurement so the user can quickly take measurements without having
     to constantly click the "New Measurement" button.
- 3. The mouse could then change into a different icon like a tape
-    measure, and display a transparent point which gives a preview of the
-    point to be measured, this point will become opaque once the user clicks.
+ 3. The mouse could then change into a cross-shaped icon and display a
+    transparent point which gives a preview of the point to be measured,
+    this point will become opaque once the user clicks.
  4. We have two options at this point, neither of which would differ
     in behavior, we could either:
     * Have a click system where the user clicks point A and then clicks
@@ -52,9 +52,9 @@ I expect the user experience to be something like the following:
  6. The distance can be written in text along the line marker that appears
     between the two points as well as written in a text box within the plugin
     window.
- 7. At any point during this process, the user can press escape to cancel the
-    measurement.
- 8. The user can hold shift to snap to certain key points such as the
+ 7. At any point during this process, the user can press escape or right click
+    to cancel the measurement.
+ 8. The user can hold control to snap to certain key points such as the
     boundaries of an entity's bounding box, the corners of those bounding
     boxes, or the grid lines as well.
 
@@ -72,10 +72,12 @@ that an xyz axis placed at point A may also be helpful for the user.
 
 ## Nice to haves
 
+ * Display bounding boxes when hovering during the selection.
  * Manipulating the end points once the tape measure is placed.
  * Specifying the length of the tape so that it will lock to that length.
  * Specifying an angle (relative to the x, y, or z axis, I suppose) that the
    tape measure will lock to.
+ * Hold shift to snap and constrain the tape measure to the closest axis.
 
 ## Questions of functionality
 
