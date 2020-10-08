@@ -21,10 +21,9 @@ entity scaling.  On a tangent, the dimensional data of an entity, which I
 assume will be a reason for which this tool will be used the most, could also
 likely be placed within the Component Inspector plugin so the user isn't left
 clicking all of the bounds of an entity and having to manually keep track of
-the entity's dimensions themselves. There is an issue out for similar type
+the entity's dimensions themselves.  There is an issue out for similar type
 improvements [here](https://github.com/ignitionrobotics/ign-gazebo/issues/158)
-where I expect to eventully add this information to the Component Inspector.
-
+where I expect to eventually add this information to the Component Inspector.
 
 ## Functionality
 
@@ -86,4 +85,6 @@ that an xyz axis placed at point A may also be helpful for the user.
  * Should we allow multiple measurements within the scene or only one?
  * Should we attach the marker to the model/link if the user clicks one?
    See [Louise's Gazebo Classic example here](https://www.youtube.com/watch?v=XjszkNSthok&feature=youtu.be)
+ * Perhaps we could eventually just have a button for this next to the
+   translational tool buttons and offer it as a default tool?
  * Does anyone see any potential problems or have any concerns?
