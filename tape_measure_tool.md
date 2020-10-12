@@ -75,12 +75,6 @@ origin of point A.
  * Specifying an angle relative to the x, y, or z axis that the
    tape measure will lock to.
  * Hold shift to snap and constrain the tape measure to the closest axis.
-
-## Questions of functionality
-
- * Should multiple measurements be allowed within the scene or only one?
- * Should the marker points attach to a model/link if the user clicks one?
+ * Multiple measurements within the scene
+ * Attach a tape measure end point to a model/link if the user clicks one.
    See [Louise's Gazebo Classic example here](https://www.youtube.com/watch?v=XjszkNSthok&feature=youtu.be)
- * Perhaps this tool could eventually just have a button for it next to the
-   translational tool buttons and Ignition Gazebo can offer it as a default
-   tool?
