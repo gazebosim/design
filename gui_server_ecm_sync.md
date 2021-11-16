@@ -2,12 +2,12 @@
 
 ## Goal
 When creating, deleting, or modifying entities/components in the GUI _while paused_,
-GUI changes should be reflected in the server once simulation is resumed.
+GUI changes should be reflected in the server once simulation is resumed, or stepped while paused.
 
 ## Approach
-Update the ECM on the GUI side directly while simulation is paused.
-Once simulation is resumed, let the server ECM know what changes took place in the GUI.
-The server ECM will then be updated to have any changes made to the GUI ECM (unless the GUI and server are run in the same process, which will be discussed below).
+If a user performs actions that modify/create/remove entities while simulation is paused, the ECM on the GUI side is updated directly to reflect these actions.
+The server's ECM does not reflect these user actions yet, but will be notified of the changes that took place once simulation is resumed or stepped while paused.
+When the server ECM is notified of these changes, it will be updated to have any changes made to the GUI ECM (unless the GUI and server are run in the same process, which will be discussed below).
 Once the server ECM is updated, simulation will be carried out as normal.
 
 The image below depicts how changes to the GUI's ECM are propogated to the server's ECM.
