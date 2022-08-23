@@ -45,3 +45,7 @@ a complete ECS. 
         1. This can be opt-out. Opting out indicates that log replay would rely on Fuel assets or locally available assets.
 1. Streamable
     1. Do not require the entire database to be loaded before it can be read. This is very useful for web applications.
+1. Conversion and legacy support
+    1. Support conversion from the old log file format to the new file
+       format.
+    1. Gazebo should continue support for the old log file format.
