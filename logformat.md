@@ -29,6 +29,11 @@ a complete ECS. 
         1. Support random access to logged data
     1. Low barrier to entry
         1. A user of the current log format needs to re-implement the Gazebo ECS.
+1. Efficient
+    1. Forward and backward iterators through the log file should be fast.
+    1. It should be possible to quickly jump to a specific time in the log
+       file.
+    1. Low overhead when writing log files.
 1. Self-contained
     1. Capture initial simulation state
     1. Capture topic names, message types, and message definitions
